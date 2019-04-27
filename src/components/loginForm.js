@@ -1,98 +1,63 @@
 import React, {Component} from 'react';
 import {StyleSheet, View,Text} from 'react-native';
 import firebase from 'firebase';
+import { connect } from 'react-redux';
 import { Input, MyButton,} from './common';
+import { emailChanged, passwordChanged, loginUser } from '../actions/index';
+import Banner from './banner';
 
 
 
 class LoginForm extends Component{
 
-state={
-    email: '',
-    password: '',
-    error: '',
-    loading: false,
-}
-
 onButtonClicked(){
-    const{email,password} = this.state;
-    this.setState({
-        error:'',
-        loading: true
-    });
+    const{email,password} = this.props;
+    this.props.loginUser(email,password);
+   }
 
-    firebase.auth().signInWithEmailAndPassword(email,password)
-    .then(this.onLoginSucces.bind(this))
-    .catch(() => {
-        firebase.auth().createUserWithEmailAndPassword(email,password)
-        .then(this.onLoginSucces.bind(this))
-        .catch(this.onLoginFailed.bind(this));
-    });
-}
-    onLoginSucces(){
-        alert('başarılı giriş');
-        this.setState({
-            email: '',
-            password: '',
-            error: '',
-            loading: false,
-        });
+    onEmailChanged(text){
+        this.props.emailChanged(text);
+    }
+    
+    onPasswordChanged(text){
+        this.props.passwordChanged(text);
     }
 
-    onLoginFailed(){
-        this.setState({
-            error:'Kimlik doğrulanmadı! Tekrar deneyin.',
-            password: '',
-            loading: false
-        });
-    }
+
+
     render(){
-        const { error, loading } = this.state;
-        const errorMessage = error ? (
-            <Text style={styles.errorStyle}>
-                {error}
-            </Text>
-        ) : 
-        null;
+        const { error, loading, fullLoading } = this.props;
 
-
-        //******** */Butonları dinamik yaptığım için buna gerek kalmadı myButton.js buradaki işi yapıyor.*****
-
-
-
-        // const loginButton = loading ? (
-        //     <Spinner />
-        // ) : (
-        //     <Button onPress= {this.onButtonClicked.bind(this)} color= '#002438' title='Giriş Yap'/>
-        // )
+    if (fullLoading) {
+      return (
+        <Spinner />
+      )
+    }
+    const errorMsg = error ? (
+        <Text style={styles.errorText}>
+          {error}
+        </Text>
+      ) : null;
 
 
         return(
+            
             <View style={{ padding:30 }}>
+            
                 <View>
                     <Input text='E-posta' inputPlaceHolder='E-posta adresi' 
-                           onChangeText={(text) => {
-                               this.setState({
-                                   email:text
-                               })
-
-                           }}
-                           value={this.state.email}      
+                           onChangeText={this.onEmailChanged.bind(this)}
+                           value={this.props.email}      
                     />
                     
                 </View>
                 <View style={{paddingLeft: 30 }} >
                 <Input text='Şifre' inputPlaceHolder='Şifrenizi giriniz' secureTextEntry
-                           onChangeText={(text) => {
-                               this.setState({
-                                   password:text
-                               })
-
-                           }}
-                           value={this.state.password}      
+                           onChangeText={this.onPasswordChanged.bind(this)}
+                           value={this.props.password}      
                     />
                 </View>
-                {errorMessage}
+                {errorMsg}
                 <MyButton 
                     spinner={loading}
                     title='Giriş Yap'
@@ -118,6 +83,13 @@ const styles = StyleSheet.create({
         alignSelf: 'center',
     },
 
-})
+});
 
-export default LoginForm;
+const mapStateToProps = state => {
+    const { email, password,loading,error } = state.auth;
+    return {
+        email, password, loading, error
+    }
+}
+
+export default connect(mapStateToProps, { emailChanged, passwordChanged, loginUser }) (LoginForm);

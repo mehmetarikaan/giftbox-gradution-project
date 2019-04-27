@@ -1,9 +1,14 @@
 import React, {Component} from 'react';
 import {View,StyleSheet} from 'react-native';
+import { Provider } from 'react-redux';
+import { createStore, applyMiddleware } from 'redux';
+import ReduxThunk from 'redux-thunk';
+import reducers from './reducers/index';
 import firebase from 'firebase';
 import Banner from './components/banner';
 import LoginForm from './components/loginForm';
 import { Spinner, MyButton } from './components/common';
+import Router from './router';
 
 export default class App extends Component {
 
@@ -57,11 +62,14 @@ renderContent(){
 
 
   render() {
+    const store = createStore(reducers, {}, applyMiddleware(ReduxThunk));
     return (
+      <Provider store={store}>
       <View style={styles.appContainer}>
         <Banner text='Giftbox'/>
         {this.renderContent()}
       </View>
+      </Provider>
     )
   }
 }
