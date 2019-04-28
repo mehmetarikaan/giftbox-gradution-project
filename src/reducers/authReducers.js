@@ -5,7 +5,7 @@ import {
     LOGIN,
     LOGIN_USER_FAILED,
     LOGGED_IN,
-    NOT_LOGGED_IN
+    NOT_LOGGED_IN,
   } from '../actions';
   
   const INITIAL_STATE = {
@@ -14,7 +14,7 @@ import {
       user: {},
       loading: false,
       error: '',
-      fullLoading: true
+      fullLoading: true,
   }
   
   export default (state = INITIAL_STATE, action) => {

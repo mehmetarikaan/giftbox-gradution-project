@@ -13,6 +13,7 @@
     "react-firebase": "^2.2.8",
     "react-native": "0.59.3",
     "react-native-router-flux": "^4.0.6",
+    "react-native-timer-countdown": "^4.1.0",
     "react-redux": "^7.0.2",
     "redux": "^4.0.1",
     "redux-thunk": "^2.3.0"

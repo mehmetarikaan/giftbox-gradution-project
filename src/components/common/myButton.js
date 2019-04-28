@@ -21,9 +21,10 @@ const MyButton = ({spinner, title, onPress, color}) => {
 const styles = StyleSheet.create({
     buttonWrapper:{
         fontSize: 20,
-        marginTop: 20,
+        width:400,
         height:49,
         justifyContent: 'center',
+        alignItems:'center',
     },
 })
 

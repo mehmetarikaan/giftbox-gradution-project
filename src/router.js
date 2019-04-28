@@ -3,10 +3,12 @@ import React from 'react';
 import { Scene, Router, Actions } from 'react-native-router-flux';
 import LoginForm from './components/loginForm';
 
+import Main from './components/profil/main';
+
 
 const RouterComp = () => {
   return (
-    <Router titleStyle={{color: '#E87B79'}}>
+    <Router>
       <Scene key='root' hideNavBar={true}>
         <Scene key='auth'>
           <Scene key='login'
@@ -15,31 +17,31 @@ const RouterComp = () => {
                  hideNavBar={true}
                  />
         </Scene>
-        {/* <Scene key='main'>
+        <Scene key='main'>
           <Scene key='anasayfa'
-                 component={Tweets}
-                 title='Tweets'
-                 rightTitle='New'
-                 onRight={() => Actions.newTweet()}
+                 component={Main}
+                 title='Anasayfa'
+                 rightTitle='Çekiliş Hakkı Kazan'
+                 onRight={() => Actions.cekilisekatil()}
                  onLeft={() => {
                   firebase.auth().signOut();
                   Actions.auth();
                  }}
                  leftTitle='Logout'
                  />
-           <Scene key='cekilisekatil'
-                  component={NewTweet}
+           {/* <Scene key='cekilisekatil'
+                  component={CekiliseKatil}
                   title='New Tweet'
                   />
            <Scene key='cekilishakki'
-                  component={UpdateTweet}
+                  component={CekilisHakki}
                   title='Update / Delete Tweet'
                   />
             <Scene key='hediyeler'
-                  component={UpdateTweet}
+                  component={Hediyeler}
                   title='Update / Delete Tweet'
-                  />
-        </Scene> */}
+                  /> */}
+        </Scene>
       </Scene>
     </Router>
   )
