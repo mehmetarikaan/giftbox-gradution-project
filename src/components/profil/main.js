@@ -8,18 +8,20 @@ import Header from './header';
 import Bar from './bar';
 import Timer from '../timer';
 import {MyButton, Spinner} from '../common';
+import { Actions } from 'react-native-router-flux';
 
 
 class Main extends React.Component {
 
   onButtonKatil() {
-   
+    Actions.cekilisekatil();
   }
   onButtonKazan() {
+    Actions.cekilishakki();
     
   }
   onButtonHediyeler() {
-    
+    Actions.hediyeler();
   }
 
 
