@@ -2,6 +2,7 @@ import React from 'react';
 import { Text, TouchableOpacity, Image, StyleSheet, View, FlatList, ActivityIndicator } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import { Loading } from './loading';
+import { MyButton } from '../components/common/myButton';
 
 // import {
 //   AdMobBanner,
@@ -9,6 +10,7 @@ import { Loading } from './loading';
 
 
 class Cekilisekatil extends React.Component {
+  
 
     constructor(){
         super();
@@ -20,23 +22,30 @@ class Cekilisekatil extends React.Component {
     }
 
     renderItem = ({ item }) => {
-      console.log(item.imageUrl);
+
+      const { loading } = this.props;
+
       return (
         <View>
-          <TouchableOpacity onPress={this.clickedItem}>
-          <View>  
-          <Image 
-          source= {{uri: item.imageUrl}}
-          style={{width: 500, height:250}}
+        <View>  
+        <Image
+        style={styles.image}
+        source= {{uri: item.imageUrl}}
+        />
+          </View> 
+          <View> 
+          <Text style={styles.textStyle}>
+          {item.title} 
+          </Text>
+          <Text style={styles.textSon}>Çekiliş Hakkınız: </Text>
+          <MyButton
+          spinner={loading}
+          title='Çekilişe Katıl'
+          color='black'
+
           />
-            </View> 
-            <View> 
-            <Text style={styles.textStyle}>
-            {item.title} 
-            </Text>
-            </View>         
-          </TouchableOpacity> 
-        </View>
+          </View>         
+      </View>
       )
     }
 
@@ -77,14 +86,43 @@ render() {
 
 const styles = StyleSheet.create({
   textStyle: {
-  justifyContent: 'center', 
-  alignItems:'center', 
-  fontSize: 18,
-  shadowColor: 'black',
-  shadowOpacity: 0.2,
-  shadowRadius: 1,
-  textAlign: 'center'
-},
+    flex:1,
+    padding:5,
+    width:'auto',
+    height:40,
+    textAlign:'center',
+    backgroundColor:'#FF5A66',
+    justifyContent: 'center', 
+    alignItems:'center', 
+    fontSize: 20,
+    shadowColor: 'black',
+    shadowOpacity: 0.2,
+    shadowRadius: 1,
+    textAlign: 'center',
+    color:'white'
+  },
+  image:{
+    borderRadius:4,
+    width: 500, 
+    height:400,
+  },
+  textSon:{
+    flex:1,
+    padding:5,
+    marginTop:10,
+    width:'auto',
+    height:40,
+    textAlign:'center',
+    backgroundColor:'#FF5A66',
+    justifyContent: 'center', 
+    alignItems:'center', 
+    fontSize: 20,
+    shadowColor: 'white',
+    shadowOpacity: 0.4,
+    shadowRadius: 3,
+    textAlign: 'center',
+    color:'white',
+  }
 })
 
 export default Cekilisekatil;

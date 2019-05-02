@@ -1,7 +1,8 @@
 import React from 'react';
 import { Text, TouchableOpacity, Image, StyleSheet, View, FlatList, ActivityIndicator } from 'react-native';
+import { Loading } from '../components/loading';
 import { Actions } from 'react-native-router-flux';
-import { Loading } from './loading';
+import { MyButton } from '../components/common/myButton';
 
 // import {
 //   AdMobBanner,
@@ -18,22 +19,36 @@ class Hediyeler extends React.Component {
         }
     }
 
+    onButtonHediyeler() {
+      Actions.cekilisekatil();
+    }
+
     renderItem = ({ item }) => {
+
+      const { loading } = this.props;
+    
       return (
         <View>
-          <TouchableOpacity onPress={this.clickedItem}>
           <View>  
-          <Image 
+          <Image
+          style={styles.image}
           source= {{uri: item.imageUrl}}
-          style={{width: 500, height:250}}
           />
             </View> 
             <View> 
             <Text style={styles.textStyle}>
             {item.title} 
             </Text>
+            <Text style={styles.textSon}>
+            Son Katılım Tarihi: {item.SonKatilim} 
+            </Text>
+            <MyButton
+            spinner={loading}
+            title='Çekilişe Katıl'
+            color='black'
+            onPress={this.onButtonHediyeler.bind(this)}
+            />
             </View>         
-          </TouchableOpacity> 
         </View>
       )
     }
@@ -69,7 +84,6 @@ render() {
           data={this.state.dataSource}
           keyExtractor={(item) => item}
           renderItem={this.renderItem}
-          
         />
     </View>
   );
@@ -78,14 +92,43 @@ render() {
 
 const styles = StyleSheet.create({
   textStyle: {
+  flex:1,
+  padding:5,
+  width:'auto',
+  height:40,
+  textAlign:'center',
+  backgroundColor:'#FF5A66',
   justifyContent: 'center', 
   alignItems:'center', 
-  fontSize: 18,
+  fontSize: 20,
   shadowColor: 'black',
   shadowOpacity: 0.2,
   shadowRadius: 1,
-  textAlign: 'center'
+  textAlign: 'center',
+  color:'white'
 },
+image:{
+  borderRadius:4,
+  width: 500, 
+  height:400,
+},
+textSon:{
+  flex:1,
+  padding:5,
+  marginTop:10,
+  width:'auto',
+  height:40,
+  textAlign:'center',
+  backgroundColor:'#FF5A66',
+  justifyContent: 'center', 
+  alignItems:'center', 
+  fontSize: 20,
+  shadowColor: 'white',
+  shadowOpacity: 0.4,
+  shadowRadius: 3,
+  textAlign: 'center',
+  color:'white',
+}
 })
 
 export default Hediyeler;

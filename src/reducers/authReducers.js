@@ -28,7 +28,7 @@ import {
       case LOGIN:
         return { ...state, loading: true, error: '' }
       case LOGIN_USER_FAILED:
-        return { ...state, loading: false, error: 'Authentication failed' }
+        return { ...state, loading: false, error: 'Kimlik Doğrulanamadı' }
       case LOGGED_IN:
         return { ...state, fullLoading: false, user: action.payload};
       case NOT_LOGGED_IN:

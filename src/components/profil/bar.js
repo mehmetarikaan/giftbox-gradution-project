@@ -4,13 +4,31 @@ import {
   View,
   Text
 } from 'react-native';
+import firebase from 'firebase';
+import {connect} from 'react-redux'
+import {cekilisGel} from '../../actions/otherActions';
 
-export default class Bar extends Component {
+class Bar extends Component {
+
+
+  constructor(){
+    super()
+    this.state = {
+    cekilishakki: '',
+
+    }
+}
+
+onCekilisGel(cekilishakki){
+  this.props.cekilisGel(cekilishakki);
+}
+
+
   render() {
     return(
       <View style={styles.bar}>
         <View style={styles.barItem}>
-          <Text style={styles.barTop}>18</Text>
+          <Text style={styles.barTop}>{this.props.cekilishakki}</Text>
           <Text style={styles.barBottom}>Çekiliş Hakkı</Text>
         </View>
       </View>
@@ -43,3 +61,13 @@ const styles = StyleSheet.create({
   },
   
 });
+
+const mapStateToProps = state => {
+  const { cekilishakki,  } = state.cekilishakki;
+  return {
+    cekilishakki, 
+  }
+}
+
+export default connect(mapStateToProps,
+    { cekilisGel })(Bar);
