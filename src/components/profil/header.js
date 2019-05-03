@@ -13,9 +13,9 @@ export default class App extends React.Component {
     return (
         <View style={styles.header}>
           <View style={styles.profilepicWrap}>
-            <Image style={styles.profilepic} source={require('./img/profilepic.jpg')} />
+            <Image style={styles.profilepic} source={require('./img/mehmetarikan.jpg')} />
           </View>
-          <Text style={styles.name}>Büşra Seymen</Text>
+          <Text style={styles.name}>Mehmet Arıkan</Text>
         </View>
     );
   }

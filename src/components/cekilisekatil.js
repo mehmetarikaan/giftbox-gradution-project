@@ -2,6 +2,8 @@ import React from 'react';
 import { Text, TouchableOpacity, Image, StyleSheet, View, FlatList, ActivityIndicator } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import { Loading } from './loading';
+import {connect} from 'react-redux';
+import {cekilisGel, CekilisHakkiDus} from '../actions/otherActions';
 import { MyButton } from '../components/common/myButton';
 
 // import {
@@ -17,14 +19,19 @@ class Cekilisekatil extends React.Component {
         this.state = {
             isLoading: true,
             dataSource: [],
-           
+            cekilishakki: '',
+            
         }
     }
-
+    
+    CekilisHakkiDus(){
+      this.props.CekilisHakkiDus(this.props.cekilishakki)
+    }  
+    
     renderItem = ({ item }) => {
 
       const { loading } = this.props;
-
+      const { cekilishakki } = this.props;
       return (
         <View>
         <View>  
@@ -37,12 +44,12 @@ class Cekilisekatil extends React.Component {
           <Text style={styles.textStyle}>
           {item.title} 
           </Text>
-          <Text style={styles.textSon}>Çekiliş Hakkınız: </Text>
+          <Text style={styles.textSon}>Çekiliş Hakkınız: {cekilishakki}</Text>
           <MyButton
           spinner={loading}
           title='Çekilişe Katıl'
           color='black'
-
+          onPress={this.CekilisHakkiDus.bind(this)}
           />
           </View>         
       </View>
@@ -125,4 +132,12 @@ const styles = StyleSheet.create({
   }
 })
 
-export default Cekilisekatil;
+const mapStateToProps = state => {
+  const { cekilishakki } = state.cekilishakki;
+  return {
+    cekilishakki, CekilisHakkiDus
+  }
+}
+
+export default connect(mapStateToProps,
+    {cekilisGel})(Cekilisekatil);
