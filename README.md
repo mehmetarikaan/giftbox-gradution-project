@@ -27,7 +27,7 @@ npm install --save react-redux
 4. `cd ../server`
 5. `npm install`
 6. `node server.js`
-7. To run the iOS version, open another terminal window type `open ../Giftbox/iOS/giftboxgradutionproject.xcodeproj`
+7. To run the iOS version, open another terminal window type `open ../Giftbox/iOS/giftbox.xcodeproj`
 8. Click the play icon in Xcode to start the app
 
 
@@ -41,7 +41,7 @@ see
 
 #### run iOS
 
-Open `ios/ReduxCounterUniversal.xcodeproj` and hit run in Xcode.
+Open `ios/giftbox.xcodeproj` and hit run in Xcode.
 
 or
 
